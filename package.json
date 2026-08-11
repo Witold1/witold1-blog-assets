@@ -1,0 +1,16 @@
+{
+  "name": "witold1-blog-assets",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Media originals and CI-generated web derivatives for the blog / portfolio.",
+  "scripts": {
+    "optimize": "node scripts/optimize.mjs",
+    "clean": "node scripts/clean-generated.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}
