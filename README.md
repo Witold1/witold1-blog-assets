@@ -77,7 +77,7 @@ npm run optimize
 |-------|--------------------------------------|
 | JPEG / PNG / WebP / TIFF | `.webp` (max ~1920px) + `.thumb.webp` (~480px) |
 | GIF | original + `.thumb.webp` when possible |
-| SVG | copied as-is |
+| SVG | sanitized copy (fixes legacy fill/encoding/viewBox quirks) |
 | MP4 / WebM / … | copied + `.poster.webp` / `.thumb.webp` if ffmpeg is available |
 
 Also writes `generated/manifest.json`.

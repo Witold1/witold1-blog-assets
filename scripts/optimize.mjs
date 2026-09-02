@@ -13,7 +13,7 @@ const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.tif', '.t
 const SVG_EXT = new Set(['.svg']);
 const VIDEO_EXT = new Set(['.mp4', '.webm', '.mov', '.m4v']);
 
-/** Longest edge for full web stills (SVG/video excluded). */
+/** Longest edge for full web stills (video excluded). */
 const WEB_MAX = 1920;
 /** Longest edge for thumbs / gallery cards. */
 const THUMB_MAX = 480;
@@ -91,6 +91,27 @@ function extractPoster(videoPath, posterPath) {
   }
 }
 
+/** Fix legacy wordcloud export quirks before publish. */
+function sanitizeSvg(text) {
+  let out = text
+    // Some exports claim ASCII but contain UTF-8 surnames (e.g. Mägi).
+    .replace(
+      /<\?xml[^>]*encoding=['"]ASCII['"][^?]*\?>\s*/i,
+      '<?xml version="1.0" encoding="UTF-8"?>\n',
+    )
+    .replace(/style="fill:\((\d+),\s*(\d+),\s*(\d+)\)"/g, 'fill="rgb($1, $2, $3)"');
+  if (!/\bviewBox=/i.test(out)) {
+    const match =
+      out.match(/<svg[^>]*\bwidth="([\d.]+)"[^>]*\bheight="([\d.]+)"/i) ||
+      out.match(/<svg[^>]*\bheight="([\d.]+)"[^>]*\bwidth="([\d.]+)"/i);
+    if (match) {
+      const [, w, h] = match;
+      out = out.replace(/<svg/i, `<svg viewBox="0 0 ${w} ${h}"`);
+    }
+  }
+  return out;
+}
+
 async function processImage(absPath, relPosix, manifest) {
   const parsed = path.parse(relPosix);
   const baseKey = toPosix(path.join(parsed.dir, parsed.name));
@@ -115,8 +136,12 @@ async function processImage(absPath, relPosix, manifest) {
 }
 
 async function processSvg(absPath, relPosix, manifest) {
+  const sanitized = sanitizeSvg(await fs.readFile(absPath, 'utf8'));
   const outRel = relPosix;
-  await copyFile(absPath, path.join(GENERATED, outRel));
+  const outAbs = path.join(GENERATED, outRel);
+  await ensureDir(path.dirname(outAbs));
+  await fs.writeFile(outAbs, sanitized, 'utf8');
+
   manifest.push({
     type: 'svg',
     source: relPosix,
