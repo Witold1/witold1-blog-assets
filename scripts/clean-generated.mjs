@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const GENERATED = path.join(ROOT, 'generated');
+const GENERATED = path.join(ROOT, 'assets', 'generated');
 
 const KEEP = new Set(['.gitkeep', 'README.md']);
 
@@ -13,7 +13,7 @@ async function main() {
     if (KEEP.has(entry.name)) continue;
     await fs.rm(path.join(GENERATED, entry.name), { recursive: true, force: true });
   }
-  console.log('generated/ cleared (kept .gitkeep + README.md)');
+  console.log('assets/generated/ cleared (kept .gitkeep + README.md)');
 }
 
 main().catch((err) => {

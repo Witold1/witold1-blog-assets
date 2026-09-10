@@ -1,5 +1,5 @@
 /**
- * Move originals/ from legacy bucket folders into content/-aligned paths:
+ * Move assets/originals/ from legacy bucket folders into content/-aligned paths:
  *   gallery/<gallery-item-slug>/
  *   blogposts/<mdx-path-without-ext>/
  *   projects/<mdx-path-without-ext>/
@@ -11,12 +11,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ORIGINALS = path.join(ROOT, 'originals');
+const ORIGINALS = path.join(ROOT, 'assets', 'originals');
 
 /** @type {Array<{ from: string, to: string }>} exact relative path moves */
 const EXACT = [];
 
-/** Prefix rules: first match wins. `fromPrefix` is relative to originals/ */
+/** Prefix rules: first match wins. `fromPrefix` is relative to assets/originals/ */
 const RULES = [
   // --- gallery: LiDAR ---
   { fromPrefix: '3D-LiDAR-Charts/LiDAR-Breckenridge-', toDir: 'gallery/lidar-breckenridge-colorado' },

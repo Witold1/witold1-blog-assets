@@ -1,5 +1,5 @@
 /**
- * Rename files inside originals/ to match content slug folders:
+ * Rename files inside assets/originals/ to match content slug folders:
  *   {slug}.{ext}
  *   {slug}--{variant}.{ext}
  *
@@ -11,7 +11,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ORIGINALS = path.join(ROOT, 'originals');
+const ORIGINALS = path.join(ROOT, 'assets', 'originals');
 
 function toPosix(p) {
   return p.split(path.sep).join('/');

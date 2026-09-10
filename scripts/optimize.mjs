@@ -6,8 +6,9 @@ import sharp from 'sharp';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
-const ORIGINALS = path.join(ROOT, 'originals');
-const GENERATED = path.join(ROOT, 'generated');
+const ASSETS = path.join(ROOT, 'assets');
+const ORIGINALS = path.join(ASSETS, 'originals');
+const GENERATED = path.join(ASSETS, 'generated');
 
 const IMAGE_EXT = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.tif', '.tiff']);
 const SVG_EXT = new Set(['.svg']);
@@ -201,10 +202,10 @@ async function clearGeneratedContent() {
 
 async function main() {
   await fs.access(ORIGINALS).catch(() => {
-    throw new Error(`Missing originals/ at ${ORIGINALS}`);
+    throw new Error(`Missing assets/originals/ at ${ORIGINALS}`);
   });
 
-  console.log('Cleaning generated/ …');
+  console.log('Cleaning assets/generated/ …');
   await clearGeneratedContent();
 
   const ffmpegOk = hasFfmpeg();
@@ -288,7 +289,7 @@ async function main() {
   try {
     await fs.copyFile(licenseSrc, path.join(GENERATED, 'LICENSE'));
   } catch {
-    console.warn('LICENSE not copied into generated/ (missing at repo root?)');
+    console.warn('LICENSE not copied into assets/generated/ (missing at repo root?)');
   }
 
   console.log(

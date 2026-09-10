@@ -1,4 +1,4 @@
-# originals/
+# assets/originals/
 
 Masters only. Folder names follow `my-next-app/content/`:
 
@@ -12,8 +12,8 @@ Masters only. Folder names follow `my-next-app/content/`:
 Primary filenames: `{slug}.{ext}` or `{slug}--{variant}.{ext}`.  
 Under `figures/`: short role names (`dag.svg`, `banner.jpeg`).
 
-Do not link the site at this folder. Run `npm run optimize` (or CI) and use paths under `generated/`.
+Do not link the site at this folder. Run `npm run optimize` (or CI) and use paths under `assets/generated/`.
 
 ## License
 
-Except where otherwise noted, visual assets are © 2026 Witold's Data Consulting under [CC BY-NC 4.0](../LICENSE). Non-commercial sharing with attribution is welcome; for commercial / press use, ask via [LinkedIn](https://www.linkedin.com/in/vital-yevtushenko/). See the [root README](../README.md#license).
+Except where otherwise noted, visual assets are © 2026 Witold's Data Consulting under [CC BY-NC 4.0](../../LICENSE). Non-commercial sharing with attribution is welcome; for commercial / press use, ask via [LinkedIn](https://www.linkedin.com/in/vital-yevtushenko/). See the [root README](../../README.md#license).

@@ -1,29 +1,32 @@
-# Media for blog / portfolio
+# Media storage and optimizer for blog / portfolio
 
-![Media](https://img.shields.io/badge/Media-images%20%7C%20SVG%20%7C%20video-4A90D9?style=flat-square)
-![Optimize](https://img.shields.io/badge/Optimize-sharp%20%2B%20ffmpeg-000000?style=flat-square)
 ![Node](https://img.shields.io/badge/Node-20+-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![GitHub Pages](https://img.shields.io/badge/Host-GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white)
+![Optimize](https://img.shields.io/badge/Optimize-sharp%20and%20ffmpeg-000000?style=flat-square)
 ![CI](https://img.shields.io/badge/CI-GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
-![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey?style=flat-square)
-![Status](https://img.shields.io/badge/Status-draft-orange?style=flat-square)
-![AI Assistance](https://img.shields.io/badge/AI--Assistance-high-informational?style=flat-square)
+![GitHub Pages](https://img.shields.io/badge/Host-GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white)<br>
+![Media](https://img.shields.io/badge/Media-images%20%7C%20SVG%20%7C%20video-4A90D9?style=flat-square)
+![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey?style=flat-square)<br>
+![Status](https://img.shields.io/badge/Status-public--beta-orange?style=flat-square)
+![AI Assistance](https://img.shields.io/badge/AI--Assistance-full-informational?style=flat-square)
 
-Source files live in **`originals/`**, organized to mirror `my-next-app/content/` slugs. Web-ready derivatives go to **`generated/`** via CI (or locally) and are published to GitHub Pages.
+Source files live in **`assets/originals/`**, organized to mirror `my-next-app/content/` slugs. Web-ready derivatives go to **`assets/generated/`** via CI (or locally) and are published to GitHub Pages.
 
 ## Layout (matches content/)
 
 ```text
-originals/
-  gallery/<gallery-item-slug>/           # ↔ content/gallery/items/<slug>.yaml
-    <primary media>
-    figures/                             # optional — post/project chrome only
-  blogposts/<post-slug>/                 # ↔ content/blogposts/<slug>.mdx
-    ...
-    figures/
-  projects/<project-slug>/               # ↔ content/projects/<slug>.mdx
-    figures/
-generated/                               # npm run optimize / CI — do not edit
+assets/
+  originals/
+    gallery/<gallery-item-slug>/           # ↔ content/gallery/items/<slug>.yaml
+      <primary media>
+      figures/                             # optional — post/project chrome only
+    blogposts/<post-slug>/                 # ↔ content/blogposts/<slug>.mdx
+      ...
+      figures/
+    projects/<project-slug>/               # ↔ content/projects/<slug>.mdx
+      figures/
+  generated/                               # npm run optimize / CI — do not edit
+scripts/
+.github/
 ```
 
 ### Primary vs `figures/`
@@ -64,6 +67,8 @@ coverImage: blogposts/project-surnames/viz-surnames-central-america/viz-surnames
 ![Pipeline](projects/project-surnames-navigator-meta/figures/pipeline-overview.webp)
 ```
 
+CDN keys are relative to the **published** tree (`assets/generated/` contents), not to the repo root — so they stay `gallery/…`, not `assets/generated/gallery/…`.
+
 ## Local optimize
 
 Requires Node 20+. Optional: `ffmpeg` on PATH for video posters.
@@ -80,11 +85,11 @@ npm run optimize
 | SVG | sanitized copy (fixes legacy fill/encoding/viewBox quirks) |
 | MP4 / WebM / … | copied + `.poster.webp` / `.thumb.webp` if ffmpeg is available |
 
-Also writes `generated/manifest.json`.
+Also writes `assets/generated/manifest.json`.
 
 ## GitHub Pages
 
-Workflow `.github/workflows/optimize-and-publish.yml` runs optimize and deploys `generated/`.
+Workflow `.github/workflows/optimize-and-publish.yml` runs optimize and deploys `assets/generated/`.
 
 Enable **Settings → Pages → Source: GitHub Actions** after you push.
 
@@ -92,8 +97,8 @@ Enable **Settings → Pages → Source: GitHub Actions** after you push.
 
 | Command | Purpose |
 |---------|---------|
-| `npm run optimize` | Build `generated/` from `originals/` |
-| `npm run clean` | Clear `generated/` (keeps README / `.gitkeep`) |
+| `npm run optimize` | Build `assets/generated/` from `assets/originals/` |
+| `npm run clean` | Clear `assets/generated/` (keeps README / `.gitkeep`) |
 
 ## Notes
 

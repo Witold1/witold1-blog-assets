@@ -5,6 +5,6 @@ Thumbs.db
 *.log
 
 # Generated derivatives are built by `npm run optimize` / CI — do not commit.
-generated/**
-!generated/.gitkeep
-!generated/README.md
+assets/generated/**
+!assets/generated/.gitkeep
+!assets/generated/README.md
