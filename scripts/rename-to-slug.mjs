@@ -124,6 +124,17 @@ function mapBase(relDir, name) {
     }
   }
 
+  if (relDir === 'gallery/dataset-census-russia-population-structure-2024') {
+    if (lower.includes('balance')) return `${slug}--balance`;
+    if (lower.includes('urban')) return `${slug}--urban`;
+    if (lower.includes('rural')) return `${slug}--rural`;
+  }
+
+  if (relDir === 'gallery/experiment-political-party-funds-russia-2026') {
+    if (lower.includes('pictogram')) return `${slug}--pictogram`;
+    if (lower.includes('snake')) return `${slug}--snake`;
+  }
+
   // road networks indexed
   if (relDir.startsWith('gallery/road-network-chart-')) {
     if (ext === '.mp4') return slug;
